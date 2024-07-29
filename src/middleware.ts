@@ -4,7 +4,7 @@ import type { NextRequest } from "next/server"
 import initDb from "@/models/server/db"
 import getOrCreateStorage from "@/models/server/storageSetup"
 
-export async function middleware(request: NextRequest) {
+export async function middleware(_: NextRequest) {
     await Promise.all([initDb(), getOrCreateStorage()])
 
     return NextResponse.next()
