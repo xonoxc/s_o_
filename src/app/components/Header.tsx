@@ -21,7 +21,7 @@ const navItems = [
     },
 ]
 
-export default function Header() {
+export default function Header(): JSX.Element {
     const { user } = useAuthStore()
 
     if (user) {

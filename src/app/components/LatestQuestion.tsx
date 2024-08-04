@@ -9,7 +9,7 @@ import { db } from "@/models/details"
 import { Query } from "node-appwrite"
 import QuestionCard from "@/components/QuestionCard"
 
-const LatestQuestion: React.FC = async () => {
+const LatestQuestion: React.FC = async (): Promise<JSX.Element> => {
     const questions = await databases.listDocuments(db, questionCollection, [
         Query.limit(5),
         Query.orderDesc("$createdAt"),

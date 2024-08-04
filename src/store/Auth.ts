@@ -2,7 +2,7 @@ import { create } from "zustand"
 import { immer } from "zustand/middleware/immer"
 import { persist } from "zustand/middleware"
 
-import { AppwriteException, ID, Models } from "appwrite"
+import { AppwriteException, ID, Models, OAuthProvider } from "appwrite"
 import { account } from "@/models/client/config"
 
 export interface UserPrefs {
@@ -17,6 +17,7 @@ interface IAuthStore {
 
     setHydrated(): void
     verifySession(): Promise<void>
+    githubLogin(): Promise<void>
 
     login(
         email: string,
@@ -50,7 +51,17 @@ export const useAuthStore = create<IAuthStore>()(
                     console.log(error)
                 }
             },
-
+            async githubLogin(): Promise<void | URL> {
+                try {
+                    return account.createOAuth2Session(
+                        OAuthProvider.Github,
+                        process.env.NEXT_PUBLIC_APP_URL! + "/login",
+                        process.env.NEXT_PUBLIC_APP_URL! + "/register"
+                    )
+                } catch (error) {
+                    console.error("error while authenticating user:", error)
+                }
+            },
             async login(email: string, password: string) {
                 try {
                     const session = await account.createEmailPasswordSession(

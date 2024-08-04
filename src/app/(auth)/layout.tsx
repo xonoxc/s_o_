@@ -20,7 +20,7 @@ const Layout = ({ children }: ILayoutProps) => {
     }, [session, router])
 
     if (session) {
-        return <></>
+        return null
     }
 
     return (

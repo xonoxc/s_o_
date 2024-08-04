@@ -3,9 +3,10 @@
 import { useState } from "react"
 import { cn } from "@/lib/utils"
 import { Label, Input } from "@/components/ui"
-import { IconBrandGithub, IconBrandGoogle } from "@tabler/icons-react"
+import { IconBrandGithub } from "@tabler/icons-react"
 import { useAuthStore } from "@/store/Auth"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 
 interface ILCProps {
     children: React.ReactNode
@@ -30,9 +31,11 @@ const LabelInputContainer = ({ children, className }: ILCProps) => {
 }
 
 export default function Login(): JSX.Element {
-    const { login, createAccount } = useAuthStore()
+    const { login, createAccount, githubLogin } = useAuthStore()
     const [isLoading, setIsLoading] = useState<boolean>()
     const [error, setError] = useState<string>("")
+
+    const router = useRouter()
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -72,10 +75,14 @@ export default function Login(): JSX.Element {
         setIsLoading(false)
     }
 
+    const handleGithubLogin = async () => {
+        const response = await githubLogin()
+    }
+
     return (
         <div className="mx-auto w-full max-w-md rounded-none border border-solid border-white/30 bg-white p-4 shadow-input dark:bg-black md:rounded-2xl md:p-8">
             <h2 className="text-xl font-bold text-neutral-800 dark:text-neutral-200">
-                Welcome to Riverflow
+                Welcome to S_o_
             </h2>
             <p className="mt-2 max-w-sm text-sm text-neutral-600 dark:text-neutral-300">
                 Signup with riverflow if you you don&apos;t have an account.
@@ -151,17 +158,7 @@ export default function Login(): JSX.Element {
                         className="group/btn relative flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-gray-50 px-4 font-medium text-black shadow-input dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
                         type="button"
                         disabled={isLoading}
-                    >
-                        <IconBrandGoogle className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
-                        <span className="text-sm text-neutral-700 dark:text-neutral-300">
-                            Google
-                        </span>
-                        <BottomGradient />
-                    </button>
-                    <button
-                        className="group/btn relative flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-gray-50 px-4 font-medium text-black shadow-input dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
-                        type="button"
-                        disabled={isLoading}
+                        onClick={handleGithubLogin}
                     >
                         <IconBrandGithub className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
                         <span className="text-sm text-neutral-700 dark:text-neutral-300">

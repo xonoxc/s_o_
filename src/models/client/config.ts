@@ -1,5 +1,3 @@
-import { env } from "@/validation/env"
-
 import { Client, Avatars, Account, Databases, Storage } from "appwrite"
 
 const client = new Client()

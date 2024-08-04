@@ -30,7 +30,7 @@ const LabelInputContainer = ({ children, className }: ILCProps) => {
 }
 
 export default function Login(): JSX.Element {
-    const { login } = useAuthStore()
+    const { login, githubLogin } = useAuthStore()
     const [isLoading, setIsLoading] = useState<boolean>()
     const [error, setError] = useState<string>("")
 
@@ -60,7 +60,7 @@ export default function Login(): JSX.Element {
     return (
         <div className="mx-auto w-full max-w-md rounded-none border border-solid border-white/30 bg-white p-4 shadow-input dark:bg-black md:rounded-2xl md:p-8">
             <h2 className="text-xl font-bold text-neutral-800 dark:text-neutral-200">
-                Login to Riverflow
+                Login to S_o_
             </h2>
             <p className="mt-2 max-w-sm text-sm text-neutral-600 dark:text-neutral-300">
                 Login to riverflow
@@ -83,7 +83,7 @@ export default function Login(): JSX.Element {
                 <LabelInputContainer className="mb-4">
                     <Label htmlFor="email">Email Address</Label>
                     <Input
-                        className="text-black"
+                        className="text-black bg-gray-300 rounded-md"
                         id="email"
                         name="email"
                         placeholder="projectmayhem@fc.com"
@@ -93,7 +93,8 @@ export default function Login(): JSX.Element {
                 <LabelInputContainer className="mb-4">
                     <Label htmlFor="password">Password</Label>
                     <Input
-                        className="text-black"
+                        className="text-black bg-gray-300  bg-white 
+						rounded-md"
                         id="password"
                         name="password"
                         placeholder="••••••••"
@@ -128,6 +129,7 @@ export default function Login(): JSX.Element {
                         className="group/btn relative flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-gray-50 px-4 font-medium text-black shadow-input dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
                         type="button"
                         disabled={isLoading}
+                        onClick={async () => githubLogin()}
                     >
                         <IconBrandGithub className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
                         <span className="text-sm text-neutral-700 dark:text-neutral-300">
